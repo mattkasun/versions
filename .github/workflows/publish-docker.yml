@@ -48,4 +48,4 @@ jobs:
               nusak/versions:${{ env.VERSION_TAG }}
               nusak/versions:${{ env.LATEST_TAG }}
           build-args: |
-              ${{ .steps.set_tag.outputs.version }}
+              ${{ steps.set_tag.outputs.version }}
