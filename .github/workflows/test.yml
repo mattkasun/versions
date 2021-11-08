@@ -18,6 +18,7 @@ jobs:
         uses: actions/checkout@v2
       - name: tags
         id: tags
+        shell: bash
         run: |
           if [[ -n "${{ github_ref_name }}" ]]; then
             echo ${{GITHUB_REF_NAME}}
