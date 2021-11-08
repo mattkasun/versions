@@ -20,25 +20,25 @@ jobs:
         id: tags
         shell: bash
         run: |
-          if [[ -n "${{ github_ref_name }}" ]]; then
+          if [[ -n "${{ github.ref.name }}" ]]; then
             echo ${{GITHUB_REF_NAME}}
           fi
-          if [[ -n "${{ github_workflow }}" ]]; then
+          if [[ -n "${{ github.workflow }}" ]]; then
             echo ${{GITHHUB_WORKFLOW}}
           fi
-          if [[ -n "${{ github_repository }}" ]]; then
+          if [[ -n "${{ github.repository }}" ]]; then
             echo ${{GITHUB_REPOSITORY}}
           fi
-          if [[ -n "${{ github_ref_type }}" ]]; then
+          if [[ -n "${{ github.ref.type }}" ]]; then
             echo ${{GITHUB_REF_TYPE}}
           fi
-          if [[ -n "${{ github_event }}" ]]; then
+          if [[ -n "${{ github.event }}" ]]; then
             echo ${{GITHUB_EVENT}}
           fi
-          if [[ -n "${{ github_event_inputs.tag }}" ]]; then
+          if [[ -n "${{ github.event.inputs.tag }}" ]]; then
             echo ${{GITHUB_EVENT_INPUTS.TAG}}
           fi
-          if [[ -n "${{ github_ref }}" ]]; then
+          if [[ -n "${{ github.ref }}" ]]; then
             TAG="${{GITHUB_REF}}
             echo "TAG=${TAG}" >> $GITHUB_ENV
           fi
