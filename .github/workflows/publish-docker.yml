@@ -21,7 +21,6 @@ jobs:
           echo "##[set-output name=latest_tag;]$GITHUB_REPOSITORY:latest"
       - name: Print Version
         run: |
-          echo ${{GITHUB_REF}}
           echo ${{steps.set_tag.outputs.version}}
           echo ${{steps.set_tag.outputs.version_tag}}
           echo ${{steps.set_tag.outputs.latest_tag}}
