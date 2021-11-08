@@ -24,24 +24,24 @@ jobs:
             echo ${{ github.workflow }}
           fi
           if [[ -n "${{ github.repository }}" ]]; then
-            echo ${{ GITHUB_REPOSITORY }}
+            echo ${{ github.respository }
           fi
           if [[ -n "${{ github.ref.type }}" ]]; then
-            echo ${{ GITHUB_REF_TYPE }}
+            echo ${{ github.ref.type }}
           fi
           if [[ -n "${{ github.event }}" ]]; then
-            echo ${{ GITHUB_EVENT }}
+            echo ${{ github.event }}
           fi
           if [[ -n "${{ github.event.inputs.tag }}" ]]; then
-            echo ${{ GITHUB_EVENT_INPUTS.TAG }}
+            echo ${{ github.event.inputs.tag }}
           fi
           if [[ -n "${{ github.ref }}" ]]; then
-            TAG="${{ GITHUB_REF }}
+            TAG="${{ github.ref }}
             echo "TAG=${TAG}" >> $GITHUB_ENV
           fi
           echo "##[set-output name=version;]VERSION=Hello"
           if [[ -n "${{ github.ref.name }}" ]]; then
-            echo ${{ GITHUB_REF_NAME }}
+            echo ${{ github.ref.name }}
           fi
       - name: print
         run: |
