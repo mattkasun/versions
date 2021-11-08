@@ -27,8 +27,8 @@ jobs:
           TAG="${{GITHUB_REF}}
           echo "TAG=${TAG}" >> $GITHUB_ENV
           echo "##[set-output name=version;]VERSION=Hello"
-        -name: print
-          run: |
+      - name: print
+        run: |
             echo ${{steps.tags.outputs.version}}
         
         
