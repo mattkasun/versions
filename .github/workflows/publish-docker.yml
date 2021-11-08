@@ -16,15 +16,13 @@ jobs:
       - name: Set tag
         id: set_tag
         run: |
-            if [[ -n "${{ github.event.inputs.tag }}" ]]; then
-              TAG=${{ github.event.inputs.tag }}
-            elif [[ "${{ github.base_ref }}" == 'master' ]]; then
-              TAG="latest"
-            else
-              TAG="${{ github.base_ref }}"
-            fi
-            echo "TAG=${TAG}" >> $GITHUB_ENV
-            echo ${TAG}
+          echo "##[set-output name=version;]VERSION=${GITHUB_REF#$"refs/tags/v"}"
+          echo "##[set-output name=version_tag;]$GITHUB_REPOSITORY:${GITHUB_REF#$"refs/tags/v"}"
+          echo "##[set-output name=latest_tag;]$GITHUB_REPOSITORY:latest"
+      - name: Print Version
+        run: |
+          echo ${{steps.set_tag.outputs.version_tag}}
+          echo ${{steps.set_tag.outputs.latest_tag}}
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up QEMU
@@ -36,12 +34,18 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: PrepareReg Name
+        run: |
+          echo VERSION_TAG=$(echo ${{ steps.version_step.outputs.version_tag }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV
+          echo LASTEST_TAG=$(echo ${{ steps.version_step.outputs.latest_tag  }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV
       - name: Build and push latest
         uses: docker/build-push-action@v2
         with:
           context: .
           platforms: linux/amd64, linux/arm64
           push: true
-          tags: nusak/versions:${{ env.TAG }}
+          tags: |
+              nusak/versions:${{ env.VERSION_TAG }}
+              nusak/versions:${{ env.LATEST_TAG }}
           build-args: |
-              ${{ env.TAG }}
+              ${{ .steps.set_tag.outputs.version }}
