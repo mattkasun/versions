@@ -20,9 +20,6 @@ jobs:
         id: tags
         shell: bash
         run: |
-          if [[ -n "${{ github.ref.name }}" ]]; then
-            echo ${{GITHUB_REF_NAME}}
-          fi
           if [[ -n "${{ github.workflow }}" ]]; then
             echo ${{GITHHUB_WORKFLOW}}
           fi
@@ -43,6 +40,9 @@ jobs:
             echo "TAG=${TAG}" >> $GITHUB_ENV
           fi
           echo "##[set-output name=version;]VERSION=Hello"
+          if [[ -n "${{ github.ref.name }}" ]]; then
+            echo ${{GITHUB_REF_NAME}}
+          fi
       - name: print
         run: |
             echo ${{steps.tags.outputs.version}}
