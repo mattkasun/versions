@@ -39,7 +39,6 @@ jobs:
             TAG="${{ github.ref }}
             echo "TAG=${TAG}" >> $GITHUB_ENV
           fi
-          echo "##[set-output name=version;]VERSION=Hello"
           if [[ -n "${{ github.ref.name }}" ]]; then
             echo ${{ github.ref.name }}
           fi
