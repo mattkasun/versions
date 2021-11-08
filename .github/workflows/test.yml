@@ -21,27 +21,27 @@ jobs:
         shell: bash
         run: |
           if [[ -n "${{ github.workflow }}" ]]; then
-            echo ${{GITHHUB_WORKFLOW}}
+            echo ${{ GITHHUB_WORKFLOW }}
           fi
           if [[ -n "${{ github.repository }}" ]]; then
-            echo ${{GITHUB_REPOSITORY}}
+            echo ${{ GITHUB_REPOSITORY }}
           fi
           if [[ -n "${{ github.ref.type }}" ]]; then
-            echo ${{GITHUB_REF_TYPE}}
+            echo ${{ GITHUB_REF_TYPE }}
           fi
           if [[ -n "${{ github.event }}" ]]; then
-            echo ${{GITHUB_EVENT}}
+            echo ${{ GITHUB_EVENT }}
           fi
           if [[ -n "${{ github.event.inputs.tag }}" ]]; then
-            echo ${{GITHUB_EVENT_INPUTS.TAG}}
+            echo ${{ GITHUB_EVENT_INPUTS.TAG }}
           fi
           if [[ -n "${{ github.ref }}" ]]; then
-            TAG="${{GITHUB_REF}}
+            TAG="${{ GITHUB_REF }}
             echo "TAG=${TAG}" >> $GITHUB_ENV
           fi
           echo "##[set-output name=version;]VERSION=Hello"
           if [[ -n "${{ github.ref.name }}" ]]; then
-            echo ${{GITHUB_REF_NAME}}
+            echo ${{ GITHUB_REF_NAME }}
           fi
       - name: print
         run: |
