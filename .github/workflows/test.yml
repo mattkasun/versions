@@ -17,13 +17,13 @@ jobs:
       - name: tags
         id: tags
         run: |
-          echo ${GITHUB_REF}
-          echo ${GITHUB_REF_NAME}
-          echo ${GITHHUB_WORKFLOW}
-          echo ${GITHUB_REPOSITORY}
-          echo ${GITHUB_REF_TYPE}
-          echo ${GITHUB_EVENT}
-          echo ${GITHUB_EVENT_INPUTS.TAG}
+          echo ${{GITHUB_REF}}
+          echo ${{GITHUB_REF_NAME}}
+          echo ${{GITHHUB_WORKFLOW}}
+          echo ${{GITHUB_REPOSITORY}}
+          echo ${{GITHUB_REF_TYPE}}
+          echo ${{GITHUB_EVENT}}
+          echo ${{GITHUB_EVENT_INPUTS.TAG}}
           TAG="${{GITHUB_REF}}
           echo "TAG=${TAG}" >> $GITHUB_ENV
           echo "##[set-output name=version;]VERSION=Hello"
