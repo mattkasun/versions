@@ -21,7 +21,7 @@ jobs:
         shell: bash
         run: |
           if [[ -n "${{ github.workflow }}" ]]; then
-            echo ${{ GITHHUB_WORKFLOW }}
+            echo ${{ github.workflow }}
           fi
           if [[ -n "${{ github.repository }}" ]]; then
             echo ${{ GITHUB_REPOSITORY }}
