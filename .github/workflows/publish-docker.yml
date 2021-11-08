@@ -21,6 +21,8 @@ jobs:
           echo "##[set-output name=latest_tag;]$GITHUB_REPOSITORY:latest"
       - name: Print Version
         run: |
+          echo ${{GITHUB_REF}}
+          echo ${{steps.set_tag.outputs.version}}
           echo ${{steps.set_tag.outputs.version_tag}}
           echo ${{steps.set_tag.outputs.latest_tag}}
       - name: Checkout
@@ -45,7 +47,7 @@ jobs:
           platforms: linux/amd64, linux/arm64
           push: true
           tags: |
-              nusak/versions:${{ env.VERSION_TAG }}
-              nusak/versions:${{ env.LATEST_TAG }}
+              ${{ env.VERSION_TAG }}
+              ${{ env.LATEST_TAG }}
           build-args: |
               ${{ steps.set_tag.outputs.version }}
