@@ -24,7 +24,7 @@ jobs:
             echo ${{ github.workflow }}
           fi
           if [[ -n "${{ github.repository }}" ]]; then
-            echo ${{ github.respository }
+            echo ${{ github.respository }}
           fi
           if [[ -n "${{ github.ref.type }}" ]]; then
             echo ${{ github.ref.type }}
