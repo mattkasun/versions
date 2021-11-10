@@ -16,14 +16,12 @@ jobs:
       - name: Set tag
         id: set_tag
         run: |
-          echo "##[set-output name=version;]VERSION=${GITHUB_REF#$"refs/tags/v"}"
-          echo "##[set-output name=version_tag;]$GITHUB_REPOSITORY:${GITHUB_REF#$"refs/tags/v"}"
-          echo "##[set-output name=latest_tag;]$GITHUB_REPOSITORY:latest"
-      - name: Print Version
-        run: |
-          echo ${{steps.set_tag.outputs.version}}
-          echo ${{steps.set_tag.outputs.version_tag}}
-          echo ${{steps.set_tag.outputs.latest_tag}}
+          if [[ $GITHUB_EVENT_NAME  == "workflow_dispatch" ]]; then
+            echo "VERSION=${{ github.event.inputs.tag }} " >> $GITHUB_ENV
+          elif [[ $GITHUB_EVENT_NAME  == "release" ]]; then
+            echo "VERSION=$GITHUB_REF_NAME" >> $GITHUB_ENV
+          else
+            exit 1
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up QEMU
@@ -35,10 +33,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: PrepareReg Name
-        run: |
-          echo VERSION_TAG=$(echo ${{ steps.version_step.outputs.version_tag }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV
-          echo LASTEST_TAG=$(echo ${{ steps.version_step.outputs.latest_tag  }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV
       - name: Build and push latest
         uses: docker/build-push-action@v2
         with:
@@ -46,7 +40,6 @@ jobs:
           platforms: linux/amd64, linux/arm64
           push: true
           tags: |
-              ${{ env.VERSION_TAG }}
-              ${{ env.LATEST_TAG }}
+            ${{ github.repository }}:${{ env.VERSION }}
           build-args: |
-              ${{ steps.set_tag.outputs.version }}
+            ${{ env.VERSION }}
