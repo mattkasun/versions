@@ -44,4 +44,4 @@ jobs:
           tags: |
             ${{ github.repository }}:${{ env.VERSION }}
           build-args: |
-            ${{ env.VERSION }}
+            VERSION=${{ env.VERSION }}
