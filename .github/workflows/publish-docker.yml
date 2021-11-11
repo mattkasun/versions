@@ -23,6 +23,7 @@ jobs:
           else
             exit 1
           fi
+          echo ${{ env.VERSION }}
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up QEMU
